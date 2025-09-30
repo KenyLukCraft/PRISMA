@@ -6,7 +6,7 @@
 # =============================================================================
 
 # Change this to your printer's IP address
-$baseUrl = "http://192.168.1.149"
+$baseUrl = "http://172.30.0.38"
 
 # Change this to match your printer's log page path
 # Common paths: /accounting, /logs, /status, /hp/device/this/status

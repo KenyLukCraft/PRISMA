@@ -4,7 +4,7 @@
 # =============================================================================
 # CONFIGURATION (Modify these values for your setup)
 # =============================================================================
-$baseUrl = "http://192.168.1.149"
+$baseUrl = "http://172.30.0.38"
 $pagePath = "/accounting"
 $outputFile = "download_links.txt"
 

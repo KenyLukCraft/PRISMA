@@ -2,7 +2,7 @@
 # Run this script to troubleshoot why no CSV/ACL files are found
 
 param(
-    [string]$PrinterIP = "192.168.1.149",
+    [string]$PrinterIP = "172.30.0.38",
     [string]$PagePath = "/accounting"
 )
 
