@@ -87,7 +87,13 @@ install_powershell() {
     
     # Add Microsoft repository
     curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-    echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+    
+    # For Raspberry Pi OS (Debian-based), use the correct repository URL
+    if grep -q "Raspberry Pi OS" /etc/os-release; then
+        echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-debian-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+    else
+        echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
+    fi
     
     # Update and install PowerShell
     sudo apt update
