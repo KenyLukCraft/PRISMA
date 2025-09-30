@@ -32,7 +32,17 @@ try {
     # Fetch webpage with timeout and minimal memory usage
     Write-Host "Connecting to printer..." -ForegroundColor Cyan
     $response = Invoke-WebRequest -Uri ("$baseUrl$pagePath") -UseBasicParsing -TimeoutSec 30
-    $html = $response.Content
+    
+    # Handle different content types properly
+    if ($response.Content -is [byte[]]) {
+        $html = [System.Text.Encoding]::UTF8.GetString($response.Content)
+    } else {
+        $html = $response.Content.ToString()
+    }
+    
+    # Debug: Check HTML content type and length
+    Write-Host "Debug: HTML content type: $($html.GetType().Name)" -ForegroundColor Gray
+    Write-Host "Debug: HTML content length: $($html.Length)" -ForegroundColor Gray
 
     # Extract CSV/ACL files in one efficient operation
     $csvAclUrls = [regex]::Matches($html, 'href="([^"]*\.(CSV|ACL))"', 'IgnoreCase') | 
@@ -55,7 +65,12 @@ try {
     if ($csvAclUrls.Count -eq 0) {
         Write-Host "No CSV or ACL files found!" -ForegroundColor Red
         Write-Host "Debug: HTML content preview (first 500 chars):" -ForegroundColor Yellow
-        Write-Host $html.Substring(0, [Math]::Min(500, $html.Length)) -ForegroundColor Gray
+        if ($html -and $html.Length -gt 0) {
+            $previewLength = [Math]::Min(500, $html.Length)
+            Write-Host $html.Substring(0, $previewLength) -ForegroundColor Gray
+        } else {
+            Write-Host "HTML content is empty or null" -ForegroundColor Red
+        }
         Write-Host "`nTroubleshooting suggestions:" -ForegroundColor Yellow
         Write-Host "1. Check if printer IP is correct: $baseUrl" -ForegroundColor Gray
         Write-Host "2. Check if page path is correct: $pagePath" -ForegroundColor Gray
@@ -121,7 +136,7 @@ try {
         $emailSubject = "Pi Log Files - Latest 2 Files ($($fileDates -join ', '))"
         $emailBody = "Latest 2 printer log files from Raspberry Pi.`n`nFiles: $($fileNames -join ', ')`nDates: $($fileDates -join ', ')`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n`nTotal files found: $($csvAclUrls.Count)"
         
-        Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody -Attachments $destPaths -TimeoutSec 30
+        Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody -Attachments $destPaths
         Write-Host "✓ Email sent successfully!" -ForegroundColor Green
     }
 
