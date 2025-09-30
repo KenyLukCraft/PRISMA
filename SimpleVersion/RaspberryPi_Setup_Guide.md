@@ -69,9 +69,10 @@ sudo apt update && sudo apt upgrade -y
 # Use direct download method instead
 
 echo "Downloading PowerShell directly from GitHub..."
-wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
-sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell_7.5.3-1.deb_arm64.deb
+sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb
 sudo apt-get install -f  # Fix any dependency issues
+rm -f powershell_7.5.3-1.deb_arm64.deb  # Clean up
 
 # Alternative: Use snap (if preferred)
 # sudo snap install powershell --classic
@@ -270,10 +271,10 @@ top
    ```bash
    # Microsoft repository doesn't have PowerShell for Debian Bookworm
    # Use direct download method instead
-   wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
-   sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
-   sudo apt-get install -f  # Fix dependencies
-   rm -f powershell_7.4.0-1.deb_arm64.deb  # Clean up
+    wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell_7.5.3-1.deb_arm64.deb
+    sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb
+    sudo apt-get install -f  # Fix dependencies
+    rm -f powershell_7.5.3-1.deb_arm64.deb  # Clean up
    ```
 
 2. **Alternative installation methods**:

@@ -88,12 +88,12 @@ install_powershell() {
     # Install PowerShell Core using direct download
     # Note: Microsoft repository doesn't have PowerShell for Debian Bookworm yet
     echo -e "${YELLOW}Downloading PowerShell directly from GitHub...${NC}"
-    wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
-    sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
+    wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell_7.5.3-1.deb_arm64.deb
+    sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb
     sudo apt-get install -f  # Fix any dependency issues
     
     # Clean up downloaded file
-    rm -f powershell_7.4.0-1.deb_arm64.deb
+    rm -f powershell_7.5.3-1.deb_arm64.deb
     
     # Verify installation
     if command -v pwsh &> /dev/null; then
