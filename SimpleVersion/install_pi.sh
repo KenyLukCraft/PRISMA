@@ -101,6 +101,7 @@ install_powershell() {
             wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
             mkdir -p ~/powershell
             tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+            chmod +x ~/powershell/pwsh  # Fix permissions
             sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
             rm -f powershell-7.5.3-linux-arm64.tar.gz
         fi
@@ -110,6 +111,7 @@ install_powershell() {
         wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
         mkdir -p ~/powershell
         tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+        chmod +x ~/powershell/pwsh  # Fix permissions
         sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
         rm -f powershell-7.5.3-linux-arm64.tar.gz
     fi

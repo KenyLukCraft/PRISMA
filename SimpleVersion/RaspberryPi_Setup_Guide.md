@@ -79,6 +79,7 @@ rm -f powershell_7.5.3-1.deb_arm64.deb  # Clean up
 # wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
 # mkdir -p ~/powershell
 # tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+# chmod +x ~/powershell/pwsh  # Fix permissions
 # sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
 # rm powershell-7.5.3-linux-arm64.tar.gz
 
@@ -291,6 +292,7 @@ top
    wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
    mkdir -p ~/powershell
    tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+   chmod +x ~/powershell/pwsh  # Fix permissions
    sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
    rm powershell-7.5.3-linux-arm64.tar.gz
    
@@ -304,24 +306,38 @@ top
    sudo apt install -y powershell
    ```
 
-3. **"Permission denied"**:
+3. **"Permission denied" for PowerShell**:
+   ```bash
+   # Fix PowerShell binary permissions
+   chmod +x ~/powershell/pwsh
+   
+   # Alternative: Run directly from directory
+   ~/powershell/pwsh --version
+   
+   # If still having issues, reinstall with proper permissions
+   sudo rm /usr/local/bin/pwsh
+   sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
+   sudo chmod +x /usr/local/bin/pwsh
+   ```
+
+4. **"Permission denied" for script files**:
    ```bash
    sudo chmod +x LogCollectorPi.ps1
    sudo chown pi:pi LogCollectorPi.ps1
    ```
 
-4. **"Cannot connect to printer"**:
+5. **"Cannot connect to printer"**:
    ```bash
    ping 192.168.1.149
    curl -I http://192.168.1.149/accounting
    ```
 
-5. **"Email sending failed"**:
+6. **"Email sending failed"**:
    - Check SMTP settings
    - Verify credentials
    - Test network connectivity
 
-6. **"Out of memory"**:
+7. **"Out of memory"**:
    ```bash
    # Increase swap space
    sudo dphys-swapfile swapoff
