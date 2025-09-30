@@ -85,19 +85,15 @@ install_powershell() {
     # Install prerequisites
     sudo apt install -y curl gnupg apt-transport-https
     
-    # Add Microsoft repository
-    curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+    # Install PowerShell Core using direct download
+    # Note: Microsoft repository doesn't have PowerShell for Debian Bookworm yet
+    echo -e "${YELLOW}Downloading PowerShell directly from GitHub...${NC}"
+    wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
+    sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
+    sudo apt-get install -f  # Fix any dependency issues
     
-    # For Raspberry Pi OS (Debian-based), use the correct repository URL
-    if grep -q "Raspberry Pi OS" /etc/os-release; then
-        echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-debian-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
-    else
-        echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
-    fi
-    
-    # Update and install PowerShell
-    sudo apt update
-    sudo apt install -y powershell
+    # Clean up downloaded file
+    rm -f powershell_7.4.0-1.deb_arm64.deb
     
     # Verify installation
     if command -v pwsh &> /dev/null; then

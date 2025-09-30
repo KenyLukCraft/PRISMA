@@ -65,17 +65,16 @@ This guide helps you set up the lightweight LogCollectorPi.ps1 script on a Raspb
 sudo apt update && sudo apt upgrade -y
 
 # Install PowerShell Core
-curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+# Note: Microsoft repository doesn't have PowerShell for Debian Bookworm yet
+# Use direct download method instead
 
-# For Raspberry Pi OS (Debian-based), use the correct repository URL
-if grep -q "Raspberry Pi OS" /etc/os-release; then
-    echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-debian-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
-else
-    echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
-fi
+echo "Downloading PowerShell directly from GitHub..."
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
+sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
+sudo apt-get install -f  # Fix any dependency issues
 
-sudo apt update
-sudo apt install -y powershell
+# Alternative: Use snap (if preferred)
+# sudo snap install powershell --classic
 
 # Verify installation
 pwsh --version
@@ -269,20 +268,24 @@ top
 
 1. **"PowerShell not found" or repository errors**:
    ```bash
-   # Fix incorrect repository URL
-   sudo rm -f /etc/apt/sources.list.d/microsoft.list
-   curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-   echo "deb [arch=arm64] https://packages.microsoft.com/repos/microsoft-debian-$(lsb_release -cs)-prod $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/microsoft.list
-   sudo apt update
-   sudo apt install -y powershell
-   ```
-
-2. **Alternative installation method** (if repository fails):
-   ```bash
-   # Download and install directly
+   # Microsoft repository doesn't have PowerShell for Debian Bookworm
+   # Use direct download method instead
    wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/powershell_7.4.0-1.deb_arm64.deb
    sudo dpkg -i powershell_7.4.0-1.deb_arm64.deb
    sudo apt-get install -f  # Fix dependencies
+   rm -f powershell_7.4.0-1.deb_arm64.deb  # Clean up
+   ```
+
+2. **Alternative installation methods**:
+   ```bash
+   # Method 1: Using snap (if available)
+   sudo snap install powershell --classic
+   
+   # Method 2: Using .NET installation
+   wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
+   sudo dpkg -i packages-microsoft-prod.deb
+   sudo apt update
+   sudo apt install -y powershell
    ```
 
 3. **"Permission denied"**:
