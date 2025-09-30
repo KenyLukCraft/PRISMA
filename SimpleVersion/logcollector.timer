@@ -1,0 +1,22 @@
+[Unit]
+Description=Run LogCollector every 6 hours
+Documentation=https://github.com/your-repo/logcollector
+Requires=logcollector.service
+
+[Timer]
+# Run every 6 hours
+OnCalendar=*-*-* 00,06,12,18:00:00
+
+# Alternative schedules (uncomment one):
+# Every 4 hours: OnCalendar=*-*-* 00,04,08,12,16,20:00:00
+# Every 8 hours: OnCalendar=*-*-* 00,08,16:00:00
+# Daily at 2 AM: OnCalendar=*-*-* 02:00:00
+# Weekdays at 6 AM: OnCalendar=Mon..Fri 06:00:00
+
+# Timer settings
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

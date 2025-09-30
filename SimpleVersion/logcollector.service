@@ -1,0 +1,37 @@
+[Unit]
+Description=Printer Log Collector Service
+Documentation=https://github.com/your-repo/logcollector
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=pi
+Group=pi
+WorkingDirectory=/opt/logcollector
+ExecStart=/usr/bin/pwsh -File LogCollectorPi.ps1
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=logcollector
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/tmp/printer_logs /var/log
+
+# Resource limits for Pi Zero 2W
+MemoryLimit=200M
+CPUQuota=50%
+
+# Restart policy
+Restart=no
+RestartSec=5
+
+# Timeout settings
+TimeoutStartSec=300
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

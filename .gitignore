@@ -1,0 +1,40 @@
+# Sensitive files and credentials
+*.json
+token.pickle
+email_password.txt
+email_credential.xml
+client_secret_*.json
+
+# Downloaded files
+downloaded_csvs/
+downloaded_files/
+gmail_attachments/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# PowerShell execution policy files
+*.ps1.log
+
+# Backup files
+*.bak
+*.backup
