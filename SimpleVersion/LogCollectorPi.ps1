@@ -6,7 +6,6 @@
 # =============================================================================
 $baseUrl = "http://172.30.0.38"
 $pagePath = "/accounting"
-$outputFile = "download_links.txt"
 
 # Email configuration
 $smtpServer = "smtp.zoho.com.cn"
@@ -68,21 +67,36 @@ try {
     Write-Host "Found $($csvAclUrls.Count) CSV/ACL files" -ForegroundColor Green
 
     # Find latest files by date (extract YYYYMMDD from filename)
+    Write-Host "Processing $($csvAclUrls.Count) CSV/ACL files to find latest 2..." -ForegroundColor Cyan
     $latestFiles = $csvAclUrls | ForEach-Object {
         $fileName = Split-Path $_ -Leaf
         $nameWithoutExt = [System.IO.Path]::GetFileNameWithoutExtension($fileName)
+        Write-Host "  Processing: $fileName" -ForegroundColor Gray
+        
         if ($nameWithoutExt.Length -ge 8) {
             $dateStr = $nameWithoutExt.Substring($nameWithoutExt.Length - 8)
             try {
                 $dateObj = [DateTime]::ParseExact($dateStr, "yyyyMMdd", $null)
-                [PSCustomObject]@{ URL = $_; FileName = $fileName; Date = $dateObj }
-            } catch { $null }
+                Write-Host "    ✓ Valid date found: $dateStr ($dateObj)" -ForegroundColor Green
+                [PSCustomObject]@{ URL = $_; FileName = $fileName; Date = $dateObj; DateString = $dateStr }
+            } catch {
+                Write-Host "    ✗ Invalid date format: $dateStr" -ForegroundColor Red
+                $null
+            }
+        } else {
+            Write-Host "    ✗ Filename too short for date extraction: $nameWithoutExt" -ForegroundColor Red
+            $null
         }
     } | Where-Object { $_ } | Sort-Object Date -Descending | Select-Object -First 2
 
     if ($latestFiles.Count -eq 0) {
         Write-Host "No valid dated files found!" -ForegroundColor Red
         exit 1
+    }
+
+    Write-Host "Selected $($latestFiles.Count) latest files:" -ForegroundColor Green
+    $latestFiles | ForEach-Object { 
+        Write-Host "  - $($_.FileName) (Date: $($_.DateString))" -ForegroundColor Yellow 
     }
 
     # Download latest files with progress indication
@@ -103,8 +117,9 @@ try {
     if ($destPaths.Count -gt 0) {
         Write-Host "Sending email..." -ForegroundColor Cyan
         $fileNames = $latestFiles | Select-Object -First $destPaths.Count | ForEach-Object { $_.FileName }
-        $emailSubject = "Pi Log Files - $($fileNames -join ', ')"
-        $emailBody = "Latest printer log files from Raspberry Pi.`nFiles: $($fileNames -join ', ')`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+        $fileDates = $latestFiles | Select-Object -First $destPaths.Count | ForEach-Object { $_.DateString }
+        $emailSubject = "Pi Log Files - Latest 2 Files ($($fileDates -join ', '))"
+        $emailBody = "Latest 2 printer log files from Raspberry Pi.`n`nFiles: $($fileNames -join ', ')`nDates: $($fileDates -join ', ')`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n`nTotal files found: $($csvAclUrls.Count)"
         
         Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody -Attachments $destPaths -TimeoutSec 30
         Write-Host "✓ Email sent successfully!" -ForegroundColor Green
