@@ -70,7 +70,7 @@ try {
     
     # Look for file links specifically
     Write-Host "`nFile links found:" -ForegroundColor Yellow
-    $fileMatches = [regex]::Matches($html, 'href="([^"]*\.(csv|acl|log|txt|pdf))"', 'IgnoreCase')
+    $fileMatches = [regex]::Matches($html, 'href="([^"]*\.(CSV|ACL|log|txt|pdf))"', 'IgnoreCase')
     if ($fileMatches.Count -gt 0) {
         $fileMatches | ForEach-Object { Write-Host "  $($_.Groups[1].Value)" -ForegroundColor White }
     } else {
@@ -79,7 +79,7 @@ try {
     
     # Look for any downloadable content
     Write-Host "`nAny downloadable content:" -ForegroundColor Yellow
-    $downloadMatches = [regex]::Matches($html, 'href="([^"]*\.(csv|acl|log|txt|pdf|zip|rar|7z))"', 'IgnoreCase')
+    $downloadMatches = [regex]::Matches($html, 'href="([^"]*\.(CSV|ACL|log|txt|pdf|zip|rar|7z))"', 'IgnoreCase')
     if ($downloadMatches.Count -gt 0) {
         $downloadMatches | ForEach-Object { Write-Host "  $($_.Groups[1].Value)" -ForegroundColor White }
     } else {
@@ -106,7 +106,7 @@ try {
 
 # Test 5: Try different file extensions
 Write-Host "`n5. Checking for different file extensions..." -ForegroundColor Green
-$extensions = @("csv", "acl", "log", "txt", "pdf", "zip", "rar", "7z", "xlsx", "doc", "docx")
+$extensions = @("CSV", "ACL", "log", "txt", "pdf", "zip", "rar", "7z", "xlsx", "doc", "docx")
 foreach ($ext in $extensions) {
     $pattern = "href=`"([^`"]*\.$ext)`""
     $matches = [regex]::Matches($html, $pattern, 'IgnoreCase')
@@ -125,4 +125,4 @@ Write-Host "4. Verify the printer has log files available" -ForegroundColor Yell
 Write-Host "5. Check if the printer uses different file extensions" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "If files are found with different extensions, update the script:" -ForegroundColor Green
-Write-Host "`$csvAclUrls = `$fullUrls | Where-Object { `$_ -match '\.(csv|acl|log|txt|pdf)$' }" -ForegroundColor Gray
+Write-Host "`$csvAclUrls = `$fullUrls | Where-Object { `$_ -match '\.(CSV|ACL|log|txt|pdf)$' }" -ForegroundColor Gray

@@ -31,7 +31,7 @@ $fullUrls = $links | ForEach-Object {
 }
 
 # Filter for CSV and ACL files only
-$csvAclUrls = $fullUrls | Where-Object { $_ -match '\.(csv|acl)$' }
+$csvAclUrls = $fullUrls | Where-Object { $_ -match '\.(CSV|ACL)$' }
 
 # Save all links for reference
 $fullUrls | Out-File -FilePath $outputFile

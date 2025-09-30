@@ -36,7 +36,7 @@ try {
     $html = $response.Content
 
     # Extract CSV/ACL files in one efficient operation
-    $csvAclUrls = [regex]::Matches($html, 'href="([^"]*\.(csv|acl))"', 'IgnoreCase') | 
+    $csvAclUrls = [regex]::Matches($html, 'href="([^"]*\.(CSV|ACL))"', 'IgnoreCase') | 
                   ForEach-Object { 
                       $url = $_.Groups[1].Value
                       if ($url -notmatch '^https?://') {
