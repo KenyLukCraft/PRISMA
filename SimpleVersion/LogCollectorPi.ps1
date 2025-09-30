@@ -44,8 +44,24 @@ try {
                       } else { $url }
                   } | Sort-Object -Unique
 
+    # Debug: Show all href links found
+    Write-Host "Debug: All href links found:" -ForegroundColor Gray
+    $allHrefs = [regex]::Matches($html, 'href="([^"]+)"', 'IgnoreCase')
+    if ($allHrefs.Count -gt 0) {
+        $allHrefs | ForEach-Object { Write-Host "  $($_.Groups[1].Value)" -ForegroundColor Gray }
+    } else {
+        Write-Host "  No href links found in HTML" -ForegroundColor Gray
+    }
+
     if ($csvAclUrls.Count -eq 0) {
         Write-Host "No CSV or ACL files found!" -ForegroundColor Red
+        Write-Host "Debug: HTML content preview (first 500 chars):" -ForegroundColor Yellow
+        Write-Host $html.Substring(0, [Math]::Min(500, $html.Length)) -ForegroundColor Gray
+        Write-Host "`nTroubleshooting suggestions:" -ForegroundColor Yellow
+        Write-Host "1. Check if printer IP is correct: $baseUrl" -ForegroundColor Gray
+        Write-Host "2. Check if page path is correct: $pagePath" -ForegroundColor Gray
+        Write-Host "3. Try running: pwsh -File diagnose_printer.ps1" -ForegroundColor Gray
+        Write-Host "4. Check if printer requires authentication" -ForegroundColor Gray
         exit 1
     }
 
