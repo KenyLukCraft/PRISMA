@@ -88,12 +88,31 @@ install_powershell() {
     # Install PowerShell Core using direct download
     # Note: Microsoft repository doesn't have PowerShell for Debian Bookworm yet
     echo -e "${YELLOW}Downloading PowerShell directly from GitHub...${NC}"
-    wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell_7.5.3-1.deb_arm64.deb
-    sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb
-    sudo apt-get install -f  # Fix any dependency issues
     
-    # Clean up downloaded file
-    rm -f powershell_7.5.3-1.deb_arm64.deb
+    # Try .deb package first
+    if wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell_7.5.3-1.deb_arm64.deb; then
+        if sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb; then
+            sudo apt-get install -f  # Fix any dependency issues
+            rm -f powershell_7.5.3-1.deb_arm64.deb
+        else
+            echo -e "${YELLOW}.deb installation failed, trying tar.gz method...${NC}"
+            rm -f powershell_7.5.3-1.deb_arm64.deb
+            # Fallback to tar.gz method
+            wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
+            mkdir -p ~/powershell
+            tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+            sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
+            rm -f powershell-7.5.3-linux-arm64.tar.gz
+        fi
+    else
+        echo -e "${YELLOW}Download failed, trying tar.gz method...${NC}"
+        # Fallback to tar.gz method
+        wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
+        mkdir -p ~/powershell
+        tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+        sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
+        rm -f powershell-7.5.3-linux-arm64.tar.gz
+    fi
     
     # Verify installation
     if command -v pwsh &> /dev/null; then

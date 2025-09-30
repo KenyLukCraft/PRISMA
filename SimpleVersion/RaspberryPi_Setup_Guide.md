@@ -74,7 +74,15 @@ sudo dpkg -i powershell_7.5.3-1.deb_arm64.deb
 sudo apt-get install -f  # Fix any dependency issues
 rm -f powershell_7.5.3-1.deb_arm64.deb  # Clean up
 
-# Alternative: Use snap (if preferred)
+# Alternative methods:
+# Method 1: Use tar.gz (if .deb fails)
+# wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
+# mkdir -p ~/powershell
+# tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+# sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
+# rm powershell-7.5.3-linux-arm64.tar.gz
+
+# Method 2: Use snap (if preferred)
 # sudo snap install powershell --classic
 
 # Verify installation
@@ -279,10 +287,17 @@ top
 
 2. **Alternative installation methods**:
    ```bash
-   # Method 1: Using snap (if available)
+   # Method 1: Using tar.gz (Recommended alternative)
+   wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/powershell-7.5.3-linux-arm64.tar.gz
+   mkdir -p ~/powershell
+   tar -xzf powershell-7.5.3-linux-arm64.tar.gz -C ~/powershell
+   sudo ln -s ~/powershell/pwsh /usr/local/bin/pwsh
+   rm powershell-7.5.3-linux-arm64.tar.gz
+   
+   # Method 2: Using snap (if available)
    sudo snap install powershell --classic
    
-   # Method 2: Using .NET installation
+   # Method 3: Using .NET installation
    wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb
    sudo dpkg -i packages-microsoft-prod.deb
    sudo apt update
