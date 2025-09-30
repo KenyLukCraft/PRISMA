@@ -13,8 +13,8 @@ NC='\033[0m' # No Color
 
 # Configuration
 SCRIPT_DIR="/opt/logcollector"
-LOG_FILE="/var/log/logcollector_install.log"
-SERVICE_USER="pi"
+LOG_FILE="/tmp/logcollector_install.log"
+SERVICE_USER="${SUDO_USER:-$USER}"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}  LogCollectorPi.ps1 Installation Script${NC}"
@@ -24,7 +24,7 @@ echo ""
 
 # Function to log messages
 log_message() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE" 2>/dev/null || echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
 }
 
 # Function to check if running as root
