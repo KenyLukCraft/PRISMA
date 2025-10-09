@@ -1,6 +1,6 @@
 [Unit]
 Description=Printer Log Collector Service
-Documentation=https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+Documentation=https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
 After=network.target network-online.target
 Wants=network-online.target
 

@@ -43,7 +43,7 @@ ssh pi@raspberrypi.local
 ### 2. One-Command Installation
 ```bash
 # Download and run the installer
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 chmod +x install_pi.sh
 sudo ./install_pi.sh
 ```
@@ -99,7 +99,7 @@ The automated installer handles everything:
 - Applies Pi Zero 2W optimizations
 
 ```bash
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 chmod +x install_pi.sh
 sudo ./install_pi.sh
 ```
@@ -118,7 +118,7 @@ sudo mkdir -p /tmp/printer_logs
 
 # Download the script
 cd /opt/logcollector
-sudo wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
+sudo wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
 sudo chmod +x LogCollectorPi.ps1
 sudo chown pi:pi LogCollectorPi.ps1
 
@@ -259,7 +259,7 @@ sudo systemctl list-timers logcollector.timer
 ```bash
 # Download and run the update script
 cd /opt/logcollector
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
 chmod +x update_pi.sh
 sudo ./update_pi.sh
 ```
@@ -275,7 +275,7 @@ The update script will:
 ```bash
 cd /opt/logcollector
 sudo cp LogCollectorPi.ps1 LogCollectorPi.ps1.backup
-sudo wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1 -O LogCollectorPi.ps1
+sudo wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1 -O LogCollectorPi.ps1
 sudo chmod +x LogCollectorPi.ps1
 sudo chown pi:pi LogCollectorPi.ps1
 ```
@@ -529,7 +529,7 @@ Built with:
 **Version**: 1.0  
 **Last Updated**: October 2025  
 **Maintainer**: KenyLukCraft  
-**Repository**: https://github.com/KenyLukCraft/OnelinePowerShell
+**Repository**: https://github.com/KenyLukCraft/PRISMA
 
 **Ready to automate your printer log collection!** 🚀
 

@@ -31,13 +31,14 @@
 - `VERSION.md` - This file
 
 #### GitHub Repository Alignment
-**Repository**: https://github.com/KenyLukCraft/OnelinePowerShell  
+**Repository**: https://github.com/KenyLukCraft/PRISMA  
 **Branch**: main  
 **Path**: `/LogCollectorPi/`
+**Branch**: master
 
 All files use consistent GitHub URLs:
-- ✅ `install_pi.sh` → `.../LogCollectorPi/install_pi.sh`
-- ✅ `update_pi.sh` → `.../LogCollectorPi/LogCollectorPi.ps1`
+- ✅ `install_pi.sh` → `.../PRISMA/master/LogCollectorPi/install_pi.sh`
+- ✅ `update_pi.sh` → `.../PRISMA/master/LogCollectorPi/LogCollectorPi.ps1`
 - ✅ `Pi_Quick_Start.md` → Updated URLs
 - ✅ `logcollector.service` → Updated documentation link
 - ✅ `logcollector.timer` → Updated documentation link
@@ -102,7 +103,7 @@ sudo cp LogCollectorPi.ps1 ~/LogCollectorPi.ps1.backup
 grep -E '^\$baseUrl|^\$pagePath|^\$smtpServer|^\$fromEmail|^\$toEmail|^\$base64Password' ~/LogCollectorPi.ps1.backup
 
 # 3. Download new version
-sudo wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1 -O LogCollectorPi.ps1
+sudo wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1 -O LogCollectorPi.ps1
 
 # 4. Apply your configuration
 sudo nano LogCollectorPi.ps1
@@ -168,7 +169,7 @@ Open source - please ensure compliance with your organization's policies.
 ## Maintainer
 **KenyLukCraft**  
 GitHub: https://github.com/KenyLukCraft  
-Repository: https://github.com/KenyLukCraft/OnelinePowerShell
+Repository: https://github.com/KenyLukCraft/PRISMA
 
 ---
 

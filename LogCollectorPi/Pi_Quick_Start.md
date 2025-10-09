@@ -14,7 +14,7 @@
 ssh pi@raspberrypi.local
 
 # Download and run the installer
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 chmod +x install_pi.sh
 sudo ./install_pi.sh
 ```

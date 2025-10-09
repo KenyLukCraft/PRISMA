@@ -6,7 +6,7 @@
 
 ## 🚀 Quick Install (One Command)
 ```bash
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh && chmod +x install_pi.sh && sudo ./install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh && chmod +x install_pi.sh && sudo ./install_pi.sh
 ```
 
 ## 📁 Project Files (14 Total)
@@ -32,9 +32,9 @@ wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCo
 
 ### Download
 ```
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
 ```
 
 ### Browse
@@ -76,7 +76,7 @@ sudo journalctl -u logcollector.service -f
 ### Update
 ```bash
 cd /opt/logcollector
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
 chmod +x update_pi.sh
 sudo ./update_pi.sh
 ```

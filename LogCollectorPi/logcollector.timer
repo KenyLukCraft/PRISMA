@@ -1,6 +1,6 @@
 [Unit]
 Description=Run LogCollector every 6 hours
-Documentation=https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+Documentation=https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
 Requires=logcollector.service
 
 [Timer]

@@ -8,7 +8,7 @@ echo "🔄 Updating LogCollectorPi.ps1 on Raspberry Pi..."
 # Configuration
 SCRIPT_DIR="/opt/logcollector"
 BACKUP_DIR="/opt/logcollector/backups"
-REPO_URL="https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1"
+REPO_URL="https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1"
 
 # Create backup directory if it doesn't exist
 sudo mkdir -p "$BACKUP_DIR"

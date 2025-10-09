@@ -39,7 +39,7 @@ Consolidate all LogCollectorPi.ps1 project files into a separate, organized fold
 **After**: All URLs standardized
 - ✅ `LogCollectorPi/LogCollectorPi.ps1`
 - ✅ `LogCollectorPi/install_pi.sh`
-- ✅ All files use: `github.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/`
+- ✅ All files use: `github.com/KenyLukCraft/PRISMA/master/LogCollectorPi/`
 
 ### 4. Created Comprehensive Documentation
 
@@ -121,7 +121,7 @@ Total: 14 files, ~90KB
 
 ### All URLs Now Point To:
 ```
-https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi/
+https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi/
 ```
 
 ### Critical URLs Fixed:
@@ -136,13 +136,13 @@ https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi/
 ### Download URLs (Ready to Use):
 ```bash
 # Installer
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 
 # Updater  
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
 
 # Main Script
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
 ```
 
 ## 📊 Project Statistics
@@ -205,7 +205,7 @@ https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollect
 ### Recommended Git Commands
 ```bash
 # Navigate to repository
-cd C:\Users\Keny\PycharmProjects\OnelinePowerShell
+cd C:\Users\Keny\PycharmProjects\PRISMA
 
 # Stage all LogCollectorPi files
 git add LogCollectorPi/
@@ -240,22 +240,22 @@ After pushing, test these URLs:
 
 1. **Repository Browser**
    ```
-   https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+   https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
    ```
 
 2. **README Display**
    ```
-   https://github.com/KenyLukCraft/OnelinePowerShell/blob/main/LogCollectorPi/README.md
+   https://github.com/KenyLukCraft/PRISMA/blob/master/LogCollectorPi/README.md
    ```
 
 3. **Raw Installer**
    ```bash
-   wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+   wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
    ```
 
 4. **Test Installation** (on test Pi)
    ```bash
-   wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+   wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
    chmod +x install_pi.sh
    ./install_pi.sh
    ```
@@ -337,14 +337,14 @@ After pushing, test these URLs:
 ## 📝 Notes for Future Reference
 
 ### File Locations
-- **Local**: `C:\Users\Keny\PycharmProjects\OnelinePowerShell\LogCollectorPi\`
-- **GitHub**: `https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi/`
-- **Raw Files**: `https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/`
+- **Local**: `C:\Users\Keny\PycharmProjects\PRISMA\LogCollectorPi\`
+- **GitHub**: `https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi/`
+- **Raw Files**: `https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/`
 
 ### Important URLs
-- Repository: https://github.com/KenyLukCraft/OnelinePowerShell
-- Project Folder: https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
-- README: https://github.com/KenyLukCraft/OnelinePowerShell/blob/main/LogCollectorPi/README.md
+- Repository: https://github.com/KenyLukCraft/PRISMA
+- Project Folder: https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
+- README: https://github.com/KenyLukCraft/PRISMA/blob/master/LogCollectorPi/README.md
 
 ### Key Files
 - Main Script: `LogCollectorPi.ps1`

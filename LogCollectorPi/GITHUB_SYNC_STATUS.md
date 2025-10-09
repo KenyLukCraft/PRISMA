@@ -1,7 +1,7 @@
 # GitHub Sync Status Report
 
 **Generated**: October 9, 2025  
-**Repository**: https://github.com/KenyLukCraft/OnelinePowerShell  
+**Repository**: https://github.com/KenyLukCraft/PRISMA  
 **Branch**: main  
 **Project Path**: `/LogCollectorPi/`
 
@@ -46,9 +46,9 @@ All GitHub URLs have been updated to point to the correct consolidated path:
 
 #### After (New LogCollectorPi paths)
 ```
-✅ https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
-✅ https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
-✅ https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+✅ https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
+✅ https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
+✅ https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
 ```
 
 ### Updated Files
@@ -66,7 +66,7 @@ All files in the `LogCollectorPi/` folder are ready to be committed and pushed t
 
 ```bash
 # Navigate to repository root
-cd C:\Users\Keny\PycharmProjects\OnelinePowerShell
+cd C:\Users\Keny\PycharmProjects\PRISMA
 
 # Add the consolidated folder
 git add LogCollectorPi/
@@ -98,21 +98,21 @@ After pushing to GitHub, verify these URLs work:
 
 1. **Installer Script**
    ```bash
-   wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+   wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
    ```
 
 2. **Update Script**
    ```bash
-   wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+   wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
    ```
 
 3. **Main Script** (used by updater)
    ```bash
-   wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
+   wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
    ```
 
 4. **Repository Browser**
-   - https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+   - https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
 
 ## 🆚 Version Comparison
 
@@ -208,21 +208,21 @@ LogCollectorPi/
 
 ### 1. Commit and Push to GitHub
 ```bash
-cd C:\Users\Keny\PycharmProjects\OnelinePowerShell
+cd C:\Users\Keny\PycharmProjects\PRISMA
 git add LogCollectorPi/
 git commit -m "Consolidate LogCollectorPi project"
 git push origin main
 ```
 
 ### 2. Verify on GitHub
-- Visit: https://github.com/KenyLukCraft/OnelinePowerShell/tree/main/LogCollectorPi
+- Visit: https://github.com/KenyLukCraft/PRISMA/tree/master/LogCollectorPi
 - Check README renders correctly
 - Test raw file URLs
 
 ### 3. Test Installation from GitHub
 On a test Pi:
 ```bash
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 chmod +x install_pi.sh
 sudo ./install_pi.sh
 ```

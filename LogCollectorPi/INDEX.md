@@ -250,7 +250,7 @@ Quick reference guide to all files in the LogCollectorPi project.
 ### Installation
 ```bash
 # Quick install
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 chmod +x install_pi.sh
 sudo ./install_pi.sh
 ```
@@ -269,7 +269,7 @@ sudo pwsh -File LogCollectorPi.ps1
 ```bash
 # Download and run updater
 cd /opt/logcollector
-wget https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+wget https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
 chmod +x update_pi.sh
 sudo ./update_pi.sh
 ```
@@ -384,13 +384,13 @@ FixPermission.sh
 ### Download Links
 ```
 # Main installer
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/install_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/install_pi.sh
 
 # Update script
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/update_pi.sh
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/update_pi.sh
 
 # Main script (used by updater)
-https://raw.githubusercontent.com/KenyLukCraft/OnelinePowerShell/main/LogCollectorPi/LogCollectorPi.ps1
+https://raw.githubusercontent.com/KenyLukCraft/PRISMA/master/LogCollectorPi/LogCollectorPi.ps1
 
 # Repository
 https://github.com/KenyLukCraft/OnelinePowerShell
