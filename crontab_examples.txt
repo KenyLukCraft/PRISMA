@@ -1,0 +1,121 @@
+# Crontab Examples for LogCollectorPi.ps1
+# =============================================
+# 
+# To edit crontab: sudo crontab -e
+# To view crontab: sudo crontab -l
+# To remove crontab: sudo crontab -r
+#
+# Format: minute hour day month weekday command
+# =============================================
+
+# Example 1: Run every 6 hours (at 00:00, 06:00, 12:00, 18:00)
+0 */6 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 2: Run every 4 hours
+0 */4 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 3: Run twice daily (6 AM and 6 PM)
+0 6,18 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 4: Run every 2 hours during business hours (8 AM to 6 PM)
+0 8-18/2 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 5: Run every hour during business hours only
+0 9-17 * * 1-5 /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 6: Run every 30 minutes (if you need more frequent collection)
+*/30 * * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 7: Run daily at 2 AM
+0 2 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1
+
+# Example 8: Run every 3 hours with email notifications
+0 */3 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1 || echo "LogCollector failed at $(date)" | mail -s "LogCollector Error" admin@yourdomain.com
+
+# =============================================
+# RECOMMENDED SETUP FOR RASPBERRY PI
+# =============================================
+
+# 1. Create log directory
+# sudo mkdir -p /var/log
+# sudo touch /var/log/logcollector.log
+# sudo chown pi:pi /var/log/logcollector.log
+
+# 2. Copy script to home directory
+# cp LogCollectorPi.ps1 /home/pi/
+
+# 3. Make script executable
+# chmod +x /home/pi/LogCollectorPi.ps1
+
+# 4. Test the script manually first
+# /usr/bin/pwsh -File /home/pi/LogCollectorPi.ps1
+
+# 5. Add to crontab (choose one of the examples above)
+# sudo crontab -e
+
+# =============================================
+# TROUBLESHOOTING
+# =============================================
+
+# Check if PowerShell is installed and working
+# which pwsh
+# pwsh --version
+
+# Check crontab logs
+# sudo journalctl -u cron
+# tail -f /var/log/logcollector.log
+
+# Test crontab syntax
+# echo "0 */6 * * * /usr/bin/pwsh -File /home/pi/LogCollectorPi.ps1" | crontab -
+
+# =============================================
+# ADVANCED EXAMPLES
+# =============================================
+
+# Run with different output handling
+0 */6 * * * /home/pi/run_logcollector.sh > /var/log/logcollector.log 2>&1
+
+# Run with email on failure only
+0 */6 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1 || echo "LogCollector failed at $(date)" | mail -s "LogCollector Error" admin@yourdomain.com
+
+# Run with cleanup of old logs
+0 */6 * * * /home/pi/run_logcollector.sh >> /var/log/logcollector.log 2>&1 && find /var/log -name "logcollector.log*" -mtime +7 -delete
+
+# Run with systemd service (alternative to crontab)
+# See systemd service examples below
+
+# =============================================
+# SYSTEMD SERVICE ALTERNATIVE
+# =============================================
+
+# Create service file: /etc/systemd/system/logcollector.service
+# [Unit]
+# Description=Printer Log Collector
+# After=network.target
+# 
+# [Service]
+# Type=oneshot
+# User=pi
+# ExecStart=/usr/bin/pwsh -File /home/pi/LogCollectorPi.ps1
+# StandardOutput=journal
+# StandardError=journal
+# 
+# [Install]
+# WantedBy=multi-user.target
+
+# Create timer file: /etc/systemd/system/logcollector.timer
+# [Unit]
+# Description=Run LogCollector every 6 hours
+# Requires=logcollector.service
+# 
+# [Timer]
+# OnCalendar=*-*-* 00,06,12,18:00:00
+# Persistent=true
+# 
+# [Install]
+# WantedBy=timers.target
+
+# Enable and start:
+# sudo systemctl enable logcollector.timer
+# sudo systemctl start logcollector.timer
+# sudo systemctl status logcollector.timer

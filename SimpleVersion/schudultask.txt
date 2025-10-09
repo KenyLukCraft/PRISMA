@@ -1,0 +1,3 @@
+-NoProfile -NoLogo -NonInteractive -ExecutionPolicy Bypass -File C:\Users\Keny\PycharmProjects\OnelinePowerShell\LogCollector.ps1
+
+login L kenyuk
