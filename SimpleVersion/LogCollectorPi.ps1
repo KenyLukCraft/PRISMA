@@ -28,10 +28,16 @@ if (-not (Test-Path $downloadFolder)) {
 # MAIN EXECUTION (Optimized for Pi Zero 2W)
 # =============================================================================
 
+# Initialize variables for email notification
+$connectionSuccess = $false
+$errorMessage = ""
+$downloadedFiles = @()
+
 try {
     # Fetch webpage with timeout and minimal memory usage
     Write-Host "Connecting to printer..." -ForegroundColor Cyan
     $response = Invoke-WebRequest -Uri ("$baseUrl$pagePath") -UseBasicParsing -TimeoutSec 30
+    $connectionSuccess = $true
     
     # Handle different content types properly
     if ($response.Content -is [byte[]]) {
@@ -123,21 +129,41 @@ try {
             Invoke-WebRequest -Uri $file.URL -OutFile $destPath -TimeoutSec 60
             Write-Host "✓ Downloaded: $($file.FileName)" -ForegroundColor Green
             $destPaths += $destPath
+            $downloadedFiles += $file.FileName
         } catch {
             Write-Host "✗ Failed: $($file.FileName) - $($_.Exception.Message)" -ForegroundColor Red
+            $errorMessage += "Failed to download $($file.FileName): $($_.Exception.Message)`n"
         }
     }
 
-    # Send email if files were downloaded
-    if ($destPaths.Count -gt 0) {
-        Write-Host "Sending email..." -ForegroundColor Cyan
+    # Send email notification (success or failure)
+    Write-Host "Sending email notification..." -ForegroundColor Cyan
+    
+    if ($connectionSuccess -and $destPaths.Count -gt 0) {
+        # Success case - files downloaded
         $fileNames = $latestFiles | Select-Object -First $destPaths.Count | ForEach-Object { $_.FileName }
         $fileDates = $latestFiles | Select-Object -First $destPaths.Count | ForEach-Object { $_.DateString }
         $emailSubject = "Pi Log Files - Latest 2 Files ($($fileDates -join ', '))"
         $emailBody = "Latest 2 printer log files from Raspberry Pi.`n`nFiles: $($fileNames -join ', ')`nDates: $($fileDates -join ', ')`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n`nTotal files found: $($csvAclUrls.Count)"
         
         Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody -Attachments $destPaths
-        Write-Host "✓ Email sent successfully!" -ForegroundColor Green
+        Write-Host "✓ Email sent successfully with attachments!" -ForegroundColor Green
+        
+    } elseif ($connectionSuccess -and $destPaths.Count -eq 0) {
+        # Connection successful but no files downloaded
+        $emailSubject = "Pi Log Collector - No Files Downloaded"
+        $emailBody = "LogCollectorPi.ps1 executed successfully but no files were downloaded.`n`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`nPrinter URL: $baseUrl$pagePath`n`nPossible reasons:`n- No CSV/ACL files found on printer`n- All files failed to download`n- Date parsing issues`n`nErrors: $errorMessage"
+        
+        Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody
+        Write-Host "✓ Email sent - no files downloaded" -ForegroundColor Yellow
+        
+    } else {
+        # Connection failed
+        $emailSubject = "Pi Log Collector - Printer Offline/Connection Failed"
+        $emailBody = "LogCollectorPi.ps1 failed to connect to the printer.`n`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`nPrinter URL: $baseUrl$pagePath`n`nError Details: $errorMessage`n`nPossible causes:`n- Printer is offline or powered down`n- Network connectivity issues`n- Printer IP address changed`n- Firewall blocking access`n- Printer web interface disabled`n`nPlease check the printer status and network connectivity."
+        
+        Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody
+        Write-Host "✓ Email sent - printer connection failed" -ForegroundColor Red
     }
 
     # Cleanup old files to save disk space (keep only last 5 files)
@@ -148,7 +174,21 @@ try {
     }
 
 } catch {
-    Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+    $errorMessage = $_.Exception.Message
+    Write-Host "Error: $errorMessage" -ForegroundColor Red
+    
+    # Send email notification about the failure
+    Write-Host "Sending error notification email..." -ForegroundColor Cyan
+    $emailSubject = "Pi Log Collector - Printer Offline/Connection Failed"
+    $emailBody = "LogCollectorPi.ps1 failed to connect to the printer.`n`nTimestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`nPrinter URL: $baseUrl$pagePath`n`nError Details: $errorMessage`n`nPossible causes:`n- Printer is offline or powered down`n- Network connectivity issues`n- Printer IP address changed`n- Firewall blocking access`n- Printer web interface disabled`n`nPlease check the printer status and network connectivity."
+    
+    try {
+        Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -UseSsl -Credential $credential -From $fromEmail -To $toEmail -Subject $emailSubject -Body $emailBody
+        Write-Host "✓ Error notification email sent!" -ForegroundColor Yellow
+    } catch {
+        Write-Host "✗ Failed to send error notification email: $($_.Exception.Message)" -ForegroundColor Red
+    }
+    
     exit 1
 } finally {
     # Always cleanup on exit
